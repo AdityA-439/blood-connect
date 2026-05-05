@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Admin Dashboard for Blood Connect">
+  <title>Admin Dashboard | Blood Connect</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">🩸 Blood Connect <span class="badge badge-danger">ADMIN</span></a>
+    <div class="nav-links">
+      <a href="find.html">Find Blood</a>
+      <a href="register.html">Become a Donor</a>
+      <a href="request.html">Request Blood</a>
+      <a href="admin.html">Admin</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    
+    <!-- Section 1: Blood Requests -->
+    <div class="admin-section">
+      <div class="admin-header">
+        <h2>Blood Requests</h2>
+        <button class="btn btn-outline btn-small" onclick="logoutAdmin()">Logout</button>
+      </div>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Blood Needed</th>
+              <th>Phone</th>
+              <th>Pincode</th>
+              <th>Urgency</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="admin-requests-body">
+            <tr><td colspan="7">Loading requests...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Section 2: Donor Management -->
+    <div class="admin-section">
+      <div class="admin-header">
+        <h2>Donor Management</h2>
+      </div>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Blood Group</th>
+              <th>Phone</th>
+              <th>Pincode</th>
+              <th>Availability</th>
+              <th>Status</th>
+              <th>Last Donated</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="admin-donors-body">
+            <tr><td colspan="8">Loading donors...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

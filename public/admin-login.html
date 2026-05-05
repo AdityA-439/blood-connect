@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Admin Login for Blood Connect">
+  <title>Admin Login | Blood Connect</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">🩸 Blood Connect</a>
+    <div class="nav-links">
+      <a href="find.html">Find Blood</a>
+      <a href="register.html">Become a Donor</a>
+      <a href="request.html">Request Blood</a>
+      <a href="admin.html">Admin</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="form-container">
+      <h2 class="text-center mb-4 text-danger">Admin Access</h2>
+      <p class="text-center text-muted mb-4">Please enter the admin password to access the dashboard.</p>
+      <form id="admin-login-form">
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" class="form-control" required placeholder="Enter password">
+        </div>
+        <button type="submit" class="btn btn-danger w-100" style="width: 100%;">Login to Dashboard</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

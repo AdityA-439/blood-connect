@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Request blood in emergencies.">
+  <title>Request Blood | Blood Connect</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">🩸 Blood Connect</a>
+    <div class="nav-links">
+      <a href="find.html">Find Blood</a>
+      <a href="register.html">Become a Donor</a>
+      <a href="request.html">Request Blood</a>
+      <a href="admin.html">Admin</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="form-container">
+      <h2 class="text-center mb-4 text-danger" style="color: var(--danger);">Emergency Blood Request</h2>
+      <p class="text-center text-muted mb-4">Please fill out this form accurately. Your request will be visible to our network immediately.</p>
+      <form id="request-form">
+        <div class="form-group">
+          <label for="name">Patient Name</label>
+          <input type="text" id="name" name="name" class="form-control" required placeholder="Patient's Full Name">
+        </div>
+        <div class="form-group">
+          <label for="blood">Blood Group Needed</label>
+          <select id="blood" name="blood" class="form-control" required>
+            <option value="" disabled selected>Select Blood Group</option>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="pincode">Location Pincode / Zip</label>
+          <input type="text" id="pincode" name="pincode" class="form-control" required placeholder="e.g. 110001">
+        </div>
+        <div class="form-group">
+          <label for="phone">Contact Phone</label>
+          <input type="tel" id="phone" name="phone" class="form-control" required placeholder="For urgent contact">
+        </div>
+        <div class="form-group">
+          <label for="urgency">Urgency Level</label>
+          <select id="urgency" name="urgency" class="form-control" required>
+            <option value="Normal">Normal</option>
+            <option value="Emergency" selected>Emergency</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-danger w-100" style="width: 100%;">Submit Request</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
