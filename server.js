@@ -14,23 +14,11 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Connect to MongoDB
-const { MongoMemoryServer } = require('mongodb-memory-server');
-const mongoURI = process.env.MONGO_URI || "YOUR_MONGO_URI";
+const mongoURI = process.env.MONGO_URI;
 
-async function connectDB() {
-  if (mongoURI !== "YOUR_MONGO_URI") {
-    mongoose.connect(mongoURI)
-      .then(() => console.log('MongoDB connected'))
-      .catch(err => console.error('MongoDB connection error:', err));
-  } else {
-    console.log('Starting In-Memory MongoDB...');
-    const mongoServer = await MongoMemoryServer.create();
-    const uri = mongoServer.getUri();
-    await mongoose.connect(uri);
-    console.log('In-Memory MongoDB connected');
-  }
-}
-connectDB();
+mongoose.connect(mongoURI)
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
 

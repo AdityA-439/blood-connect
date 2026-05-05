@@ -1,5 +1,6 @@
 // Configuration
-const API_URL = '/api';
+// Replace this with your actual Render backend URL
+const API_URL = 'https://YOUR_BACKEND_NAME.onrender.com/api';
 
 // Utility: Show Toast Notification
 function showToast(message, type = 'success') {
