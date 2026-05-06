@@ -67,7 +67,7 @@ async function enforce3MonthRule(donors) {
 }
 
 // Register donor
-app.post('/api/donor', async (req, res) => {
+app.post('/api/donors', async (req, res) => {
   try {
     const { name, blood, pincode, phone } = req.body;
     const newDonor = new Donor({ name, blood, pincode, phone });
@@ -78,12 +78,16 @@ app.post('/api/donor', async (req, res) => {
   }
 });
 
-// Get all donors
-app.get('/api/donor', async (req, res) => {
+// Get all donors (with optional bloodGroup filter)
+app.get('/api/donors', async (req, res) => {
   try {
-    let donors = await Donor.find().sort({ verified: -1, createdAt: -1 });
+    const { bloodGroup } = req.query;
+    const query = {};
+    if (bloodGroup) query.blood = bloodGroup;
+
+    let donors = await Donor.find(query).sort({ verified: -1, createdAt: -1 });
     if (await enforce3MonthRule(donors)) {
-      donors = await Donor.find().sort({ verified: -1, createdAt: -1 });
+      donors = await Donor.find(query).sort({ verified: -1, createdAt: -1 });
     }
     res.json(donors);
   } catch (error) {
@@ -92,7 +96,7 @@ app.get('/api/donor', async (req, res) => {
 });
 
 // Filter donors
-app.get('/api/donor/search', async (req, res) => {
+app.get('/api/donors/search', async (req, res) => {
   try {
     const { blood, pincode } = req.query;
     const query = {};

@@ -22,8 +22,8 @@
   <div class="container">
     <h2 class="mb-4">Find a Blood Donor</h2>
     
-    <div class="filters">
-      <select id="search-blood" class="form-control">
+    <form id="find-form" class="filters">
+      <select id="blood" class="form-control" name="blood">
         <option value="">All Blood Groups</option>
         <option value="A+">A+</option>
         <option value="A-">A-</option>
@@ -34,9 +34,8 @@
         <option value="AB+">AB+</option>
         <option value="AB-">AB-</option>
       </select>
-      <input type="text" id="search-pincode" class="form-control" placeholder="Search by Pincode">
-      <button id="search-btn" class="btn btn-primary">Search</button>
-    </div>
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
 
     <div id="donor-grid" class="grid">
       <!-- Donor cards will be dynamically injected here -->
