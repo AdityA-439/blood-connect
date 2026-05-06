@@ -19,7 +19,35 @@ const mongoURI = process.env.MONGO_URI;
 mongoose.connect(mongoURI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
+// ===== GET ALL DONORS =====
+app.get("/api/donors", async (req, res) => {
+  try {
+    const { bloodGroup } = req.query;
 
+    let donors;
+
+    if (bloodGroup) {
+      donors = await Donor.find({ bloodGroup });
+    } else {
+      donors = await Donor.find();
+    }
+
+    res.json(donors);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch donors" });
+  }
+});
+
+
+// ===== GET ALL REQUESTS =====
+app.get("/api/requests", async (req, res) => {
+  try {
+    const requests = await Request.find();
+    res.json(requests);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch requests" });
+  }
+});
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
 
 app.post('/api/admin/login', (req, res) => {
@@ -49,7 +77,7 @@ async function enforce3MonthRule(donors) {
   const threeMonthsAgo = new Date();
   threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
   let changed = false;
-  
+
   for (let d of donors) {
     if (d.lastDonatedAt) {
       if (d.lastDonatedAt > threeMonthsAgo && d.available === true) {
@@ -102,7 +130,7 @@ app.get('/api/donors/search', async (req, res) => {
     const query = {};
     if (blood) query.blood = blood;
     if (pincode) query.pincode = pincode;
-    
+
     let donors = await Donor.find(query).sort({ verified: -1, createdAt: -1 });
     if (await enforce3MonthRule(donors)) {
       donors = await Donor.find(query).sort({ verified: -1, createdAt: -1 });
@@ -118,7 +146,7 @@ app.put('/api/donor/:id/toggle', adminAuth, async (req, res) => {
   try {
     const donor = await Donor.findById(req.params.id);
     if (!donor) return res.status(404).json({ error: 'Donor not found' });
-    
+
     let nextState = req.body.available !== undefined ? req.body.available : !donor.available;
 
     // Check 3 month rule if trying to set available = true
@@ -129,7 +157,7 @@ app.put('/api/donor/:id/toggle', adminAuth, async (req, res) => {
         return res.status(400).json({ error: 'Cannot mark available. Donor has donated within the last 3 months.' });
       }
     }
-    
+
     donor.available = nextState;
     await donor.save();
     res.json({ message: 'Availability updated', donor });
@@ -143,7 +171,7 @@ app.put('/api/donor/:id/verify', adminAuth, async (req, res) => {
   try {
     const donor = await Donor.findById(req.params.id);
     if (!donor) return res.status(404).json({ error: 'Donor not found' });
-    
+
     donor.verified = !donor.verified;
     await donor.save();
     res.json({ message: 'Verification status updated', donor });
@@ -157,7 +185,7 @@ app.put('/api/donor/:id/donate', adminAuth, async (req, res) => {
   try {
     const donor = await Donor.findById(req.params.id);
     if (!donor) return res.status(404).json({ error: 'Donor not found' });
-    
+
     donor.lastDonatedAt = new Date();
     donor.available = false; // automatically set unavailable
     await donor.save();
